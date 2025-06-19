@@ -13,16 +13,16 @@ app.use(express.urlencoded({ extended: true }));
 
 // Ruta de registro de usuario
 app.post('/register', async (req, res) => {
-  const { nombre_completo, fecha_nacimiento, usuario, correo, contrasena } = req.body;
+  const { nombre_completo, fecha_nacimiento, usuario, email, contrasena } = req.body;
 
   try {
     const hashedPassword = await bcrypt.hash(contrasena, 10);
 
     const sql = `INSERT INTO usuarios 
-                 (nombre_completo, fecha_nacimiento, usuario, correo, contrasena)
+                 (nombre_completo, fecha_nacimiento, usuario, email, contrasena)
                  VALUES (?, ?, ?, ?, ?)`;
 
-    connection.query(sql, [nombre_completo, fecha_nacimiento, usuario, correo, hashedPassword], (err, results) => {
+    connection.query(sql, [nombre_completo, fecha_nacimiento, usuario, email, hashedPassword], (err, results) => {
       if (err) {
         console.error(err);
         return res.status(500).send('Error al registrar usuario.');
