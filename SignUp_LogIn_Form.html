@@ -3,22 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login/Signup Form</n  >
+  <title>Login/Signup Form</title>
   <link rel="stylesheet" href="SignUp_LogIn_Form.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
   <div class="container">
-    <!-- FORMULARIO DE LOGIN -->
+
+    <!-- Nuevo comentario-->
+    <!-- FORMULARIO DE LOGIN -->  
     <div class="form-box login">
-      <form id="loginForm">
+      <form action="#">
         <h1>SISCRR</h1>
         <div class="input-box">
-          <input type="text" id="loginUsuario" placeholder="Usuario" name="usuario" required>
+          <input type="text" placeholder="Usuario" required>
           <i class='bx bxs-user'></i>
         </div>
         <div class="input-box">
-          <input type="password" id="loginContrasena" placeholder="Contraseña" name="contrasena" required>
+          <input type="password" placeholder="Contraseña" required>
           <i class='bx bxs-lock-alt'></i>
         </div>
         <div class="forgot-link">
@@ -37,7 +39,7 @@
 
     <!-- FORMULARIO DE REGISTRO -->
     <div class="form-box register">
-      <form id="signupForm">
+      <form action="http://localhost:3000/register" method="POST">
         <h1>Registro</h1>
         <div class="input-box">
           <input type="text" placeholder="Nombre Completo" name="nombre_completo" required>
@@ -70,6 +72,7 @@
         <p>¿No estás registrado?</p>
         <button class="btn register-btn">Registrar</button>
       </div>
+
       <div class="toggle-panel toggle-right">
         <h1>Bienvenido!</h1>
         <p>¿Ya tienes una cuenta?</p>
@@ -78,59 +81,6 @@
     </div>
   </div>
 
-  <script>
-    // Manejo de registro
-    document.getElementById('signupForm').addEventListener('submit', async e => {
-      e.preventDefault();
-      const data = {
-        nombre_completo: e.target.nombre_completo.value,
-        usuario: e.target.usuario.value,
-        correo: e.target.correo.value,
-        fecha_nacimiento: e.target.fecha_nacimiento.value,
-        contrasena: e.target.contrasena.value
-      };
-      const res = await fetch('http://localhost:3000/register', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(data)
-      });
-      if (res.ok) {
-        alert('Registro exitoso');
-        document.querySelector('.container').classList.remove('active');
-      } else {
-        const err = await res.text();
-        alert('Error al registrar: ' + err);
-      }
-    });
-
-    // Manejo de login
-    document.getElementById('loginForm').addEventListener('submit', async e => {
-      e.preventDefault();
-      const data = {
-        usuario: document.getElementById('loginUsuario').value,
-        contrasena: document.getElementById('loginContrasena').value
-      };
-      const res = await fetch('http://localhost:3000/login', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(data)
-      });
-      if (res.ok) {
-        window.location.href = 'loading.html';
-      } else {
-        const errObj = await res.json();
-        alert('Error de login: ' + errObj.message);
-      }
-    });
-
-    // Toggle entre formularios
-    const registerBtn = document.querySelector('.register-btn');
-    const loginBtn = document.querySelector('.login-btn');
-    const container = document.querySelector('.container');
-    registerBtn.addEventListener('click', () => container.classList.add('active'));
-    loginBtn.addEventListener('click', () => container.classList.remove('active'));
-  </script>
+  <script src="SignUp_LogIn_Form.js"></script>
 </body>
 </html>
-
-<!--Se modificó el código completo-->
